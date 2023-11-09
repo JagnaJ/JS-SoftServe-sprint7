@@ -39,7 +39,7 @@
 
     <script>
         function changeCSS() {
-            var textElement = document.getElementById('text');
+            let textElement = document.getElementById('text');
             textElement.style.color = 'orange';
             textElement.style.fontSize = '20px';
             textElement.style.fontFamily = 'Comic Sans MS';
@@ -71,7 +71,7 @@
             document.body.style.backgroundColor = 'pink';
         });
 
-        var btn3 = document.getElementById('btn3');
+        let btn3 = document.getElementById('btn3');
         btn3.addEventListener('mousedown', function () {
             document.body.style.backgroundColor = 'brown';
         });
@@ -108,8 +108,8 @@
 
     <script>
         function removeSelectedOption() {
-            var select = document.getElementById("mySelect");
-            var selectedOption = select.options[select.selectedIndex];
+            let select = document.getElementById("mySelect");
+            let selectedOption = select.options[select.selectedIndex];
 
             if (selectedOption) {
                 select.remove(select.selectedIndex);
@@ -121,19 +121,40 @@
 
 
 //5.
-<!DOCTYPE html >
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Messages on Button Interaction</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Events</title>
+    <style>
+        #output {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <button id="myButton" onclick="displayMessage('I was pressed!')" onmouseover="displayMessage('Mouse on me!')" onmouseout="displayMessage('Mouse is not on me!')">Click me</button>
 
-    <script>
-        function displayMessage(message) {
-            alert(message);
-        }
-    </script>
+<button id="liveButton">Live Button!</button>
+<p id="output"></p>
+
+<script>
+    let button = document.getElementById('liveButton');
+    let output = document.getElementById('output');
+
+    button.addEventListener('click', function() {
+        output.innerText = 'I was pressed!';
+    });
+
+    button.addEventListener('mouseover', function() {
+        output.innerText = 'Mouse on me!';
+    });
+
+    button.addEventListener('mouseout', function() {
+        output.innerText = 'Mouse is not on me!';
+    });
+</script>
+
 </body>
 </html>
 
@@ -149,10 +170,10 @@
 
     <script>
         function updateWindowSize() {
-            var windowWidth = window.innerWidth;
-            var windowHeight = window.innerHeight;
+            let windowWidth = window.innerWidth;
+            let windowHeight = window.innerHeight;
 
-            var windowSizeElement = document.getElementById('windowSize');
+            let windowSizeElement = document.getElementById('windowSize');
             windowSizeElement.textContent = windowWidth + ' x ' + windowHeight;
         }
 
@@ -164,50 +185,61 @@
 
 
 //7.
-<!DOCTYPE html >
-    <html>
-        <head>
-            <title>Dropdown Lists with Countries and Cities</title>
-        </head>
-        <body>
-            <select name="country" id="country">
-                <option value="ger">Germany</option>
-                <option value="usa">USA</option>
-                <option value="ukr">Ukraine</option>
-            </select>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Dropdowns</title>
+</head>
+<body>
 
-            <select name="cities" id="cities"></select>
+<select name="country" id="country">
+    <option value="ger">Germany</option>
+    <option value="usa">USA</option>
+    <option value="ukr">Ukraine</option>
+</select>
 
-            <p id="result"></p>
+<select name="cities" id="cities"></select>
 
-            <script>
-                var countries = {
-                    "ger": ["Berlin", "Hamburg", "Munich", "Frankfurt"],
-                "usa": ["New York", "Los Angeles", "Chicago", "San Francisco"],
-                "ukr": ["Kyiv", "Lviv", "Kharkiv", "Odessa"]
-        };
+<p id="selectedLocation"></p>
 
-                var countrySelect = document.getElementById("country");
-                var citiesSelect = document.getElementById("cities");
-                var resultParagraph = document.getElementById("result");
+<script>
+    let countrySelect = document.getElementById('country');
+    let citiesSelect = document.getElementById('cities');
+    let output = document.getElementById('selectedLocation');
 
-                countrySelect.addEventListener("change", function() {
-            var selectedCountry = countrySelect.value;
-                var selectedCities = countries[selectedCountry] || [];
+    let cities = {
+        ger: ['Berlin', 'Hamburg', 'Munich'],
+        usa: ['New York', 'Los Angeles', 'Chicago'],
+        ukr: ['Kyiv', 'Lviv', 'Odessa']
+    };
 
-                citiesSelect.innerHTML = "";
+    function populateCities() {
+        let selectedCountry = countrySelect.value;
+        citiesSelect.innerHTML = ''; 
 
-                selectedCities.forEach(function(city) {
-                var option = document.createElement("option");
-                option.text = city;
-                citiesSelect.add(option);
-            });
-
-                var selectedCountryName = countrySelect.options[countrySelect.selectedIndex].text;
-                var selectedCity = citiesSelect.options[citiesSelect.selectedIndex].text;
-                resultParagraph.textContent = "Selected country: " + selectedCountryName + ", City: " + selectedCity;
+        cities[selectedCountry].forEach(function(city) {
+            let option = document.createElement('option');
+            option.value = city;
+            option.text = city;
+            citiesSelect.add(option);
         });
-            </script>
-        </body>
-    </html>
+    }
+
+    countrySelect.addEventListener('change', function() {
+        populateCities();
+        output.innerText = 'Selected Country: ' + countrySelect.options[countrySelect.selectedIndex].text;
+    });
+
+    citiesSelect.addEventListener('change', function() {
+        output.innerText = 'Selected Country: ' + countrySelect.options[countrySelect.selectedIndex].text +
+                           ', Selected City: ' + citiesSelect.options[citiesSelect.selectedIndex].text;
+    });
+
+    populateCities();
+</script>
+
+</body>
+</html>
 
