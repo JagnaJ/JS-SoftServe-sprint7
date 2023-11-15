@@ -143,20 +143,21 @@
     let output = document.getElementById('output');
 
     button.addEventListener('click', function() {
-        output.innerText = 'I was pressed!';
+        output.innerText += 'I was pressed!\n';
     });
 
     button.addEventListener('mouseover', function() {
-        output.innerText = 'Mouse on me!';
+        output.innerText += 'Mouse on me!\n';
     });
 
     button.addEventListener('mouseout', function() {
-        output.innerText = 'Mouse is not on me!';
+        output.innerText += 'Mouse is not on me!\n';
     });
 </script>
 
 </body>
 </html>
+
 
 
 //6.
